@@ -11,6 +11,33 @@
 .navbar-fixed {
     position: fixed;
 }
+.rounded-circle {
+    border-radius: 50%!important;
+    height: 150px;
+}
+.image-profile {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    background-position: center;
+    background-size: cover;
+    margin: 0 auto;
+    margin-bottom: 35px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 15px #e1e3ec;
+    /*cursor: pointer;*/
+}
+
+.image-profile input {
+    position: absolute;
+    width: 100%;
+    height: 130%;
+    top: -30px;
+    opacity: 0;
+    cursor: pointer;
+}
 
 .navbar-brand {
     float: left;
@@ -20,6 +47,13 @@
     line-height: 20px;
 }
 
+/*.img-profile {*/
+    /*width: 100px!important;*/
+    /*height: 100px!important;*/
+/*}*/
+/*.image-profile {*/
+    /*position:absolute;width:100%;height:130%;top:-30px;opacity:0;cursor:pointer*/
+/*}*/
 hr.style-eight {
     height: 10px;
     border: 1px;

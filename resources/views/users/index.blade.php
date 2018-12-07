@@ -20,6 +20,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="justify-content-md-center">
         @if(count($users) > 0)
             <table  class="table table-bordered">
@@ -35,7 +37,7 @@
 {{--                {{dd($users)}}--}}
                 @foreach($users as $i => $user)
                     <tr>
-                        <td>{{(($users->currentPage() - 1) * 4) + ++$i}}</td>
+                        <td class="col-md-auto">{{(($users->currentPage() - 1) * 4) + ++$i}}</td>
                         <td>{{$user->name}}</td>
                         <td>
                             @php
@@ -49,11 +51,75 @@
                             @endforeach
                             {{rtrim($phones, ', ')}}
                         </td>
-                        <td class="form-inline ">
-                            <a href="/user/{{$user->id}}/edit" class="btn btn-info mr-md-2">Edit</a>
-                            {{Form::open(array('url' => '/user/' .$user->id . '/delete','class' =>'form-inline', 'method' => 'delete'))}}
-                            <span class="btn btn-danger" id="btn-delete" >Delete</span>
+                        <td>
+
+                            <div class="form-inline">
+                                <!-- Button trigger modal -->
+                                <button type="button" id="btnShow<?php echo $user->id?>" class="btn btn-primary mr-md-2" data-toggle="modal" data-target="#titleModal<?php echo $user->id?>">
+                                    Show
+                                </button>
+
+                                <a href="/user/{{$user->id}}/edit" class="btn btn-info mr-md-2">Edit</a>
+                                {{Form::open(array('url' => '/user/' .$user->id . '/delete','class' =>'form-inline', 'method' => 'delete'))}}
+                                <span class="btn btn-danger" id="btn-delete" >Delete</span>
                             {{Form::close()}}
+
+                            </div>
+
+                                <!-- Modal -->
+                                <div class="modal" id="titleModal<?php echo $user->id?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ModalTital">{{$user->name}}'s profile</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            {{ Form::open(array('url' => '/user/' .$user->id .'/update','class' => 'modal-update','method' => 'put'))}}
+
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="offset-sm-2 image-profile" style="background-image: url({{$user->path ? url('images/'.$user->path) : url('images/img_avatar.png')}})">
+                                                                <input type="file" name="profile_img">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8 offset-sm-2">
+                                                            <div class="form-group">
+                                                                <label for="Name">Name</label>
+                                                                <input type="text"  class="form-control" name="name" id="Name" value="{{$user->name}}" aria-describedby="emailHelp" placeholder="Enter title" required>
+                                                            </div>
+                                                            @foreach($user->phones as $i => $phone)
+                                                                <div class="form-group">
+                                                                    <label>Phone {{$i + 1}}</label>
+                                                                    <input type="text" class="form-control" name="phones[]" value="{{$phone->phone}}" placeholder="Enter phone" required><br/>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                {{--<span class="btn btn-primary" id="btn-update">Save changes</span>--}}
+                                                <button type="button" class="btn btn-primary" id="btn-update-modal">Save changes</button>
+                                            </div>
+                                            {{Form::close()}}
+
+                                        </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+
                         </td>
                     </tr>
                 @endforeach

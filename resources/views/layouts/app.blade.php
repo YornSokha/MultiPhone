@@ -43,67 +43,99 @@
         integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.2/sweetalert2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
         var counter = 1;
 
+        $(document).on('click', '.remove-update', function () {
+            var _this = $(this);
+            _this.closest('.add-field-update').remove();
+        });
+
+        $('#btnShow').click(function () {
+            // $('#titleModal').modal.show();
+            $('#titleModal').modal('show');
+        });
+
+        $(document).on('click', '#btn-update', function () {
+            swal(
+                'Updated!',
+                '',
+                'success'
+            ).then((result) => {
+                $('.align-self-center').submit();
+            })
+        });
+        $(document).on('click', '#btn-update-modal', function () {
+            swal(
+                'Updated!',
+                '',
+                'success'
+            ).then((result) => {
+                // $('.modal-update').submit();
+                var btnUpdate = $(this);
+                btnUpdate.closest('.modal-update').submit();
+            })
+        });
+
+        $(document).on('click', '.add-update', function (e) {
+                e.preventDefault();
+                var phone = '<div class="add-field-update">\
+                                <div class="row" >\
+                                    <div class="form-group col-md-11">\
+                                        <label>Phone ' + ++counter + '</label>\
+                                        <input type="text" class="form-control" name="phones[]" placeholder="Enter phone" required><br/>\
+                                    </div>\
+                                    <div class="col-md-1">\
+                                        <label for="btn-add-more">Remove</label>\
+                                        <button class="btn btn-danger remove-update">X</button>\
+                                    </div>\
+                                </div>\
+                            </div>';
+
+                var btnAdd = $(this);
+                btnAdd.closest('.add-field-update').append(phone);
+        });
+
         $(document).on('click', '#btn-delete', function () {
-                var _this = $(this);
-                swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        _this.closest('.form-inline').submit();
-                    }
-                })
-        })
+            var _this = $(this);
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    _this.closest('.form-inline').submit();
+                }
+            })
+        });
 
         $(document).on('click','.remove',function () {
             $(this).closest('.add-field').remove();
             --counter;
         });
 
-        $(document).on('click', '.remove-update', function () {
-            var _this = $(this);
-            _this.closest('.add-field').remove();
-        })
-        $(document).on('click', '.add-update', function (e) {
-            if(counter < 3){
-                e.preventDefault();
-                var phone ='<div class="form-group col-md-11">\
-                                <label for="inputPhone">Phone '+ ++counter +' </label>\
-                                <input type="text" class="form-control" name="phones[]"  placeholder="Enter phone" required><br/>\
-                            </div>\
-                            <div class="col-md-1">\
-                                <label for="btn-add-more">Remove</label>\
-                                <button class="btn btn-danger remove">X</button>\
-                            </div>';
-                $(".add-field").append(phone);
-            }
-        })
-
         $(document).on('click', '.add', function (e){
-
             if(counter < 3){
                 e.preventDefault();
                 var phone = '<div class="add-field">\
-                                    <div class="row" >\
-                                        <div class="form-group col-md-11">\
-                                            <label for="inputPhone">Phone '+ ++counter +'</label>\
-                                            <input type="text" class="form-control" name="phones[]" placeholder="Enter phone" required><br/>\
-                                        </div>\
-                                        <div class="col-md-1">\
-                                            <label for="btn-add-more">Remove</label>\
-                                            <button class="btn btn-danger remove">X</button>\
-                                        </div>\
+                                <div class="row" >\
+                                    <div class="form-group col-md-11">\
+                                        <label>Phone '+ ++counter +'</label>\
+                                        <input type="text" class="form-control" name="phones[]" placeholder="Enter phone" required><br/>\
                                     </div>\
+                                    <div class="col-md-1">\
+                                        <label for="btn-add-more">Remove</label>\
+                                        <button class="btn btn-danger remove">X</button>\
+                                    </div>\
+                                </div>\
                             </div>';
 
                 $("#add-field").append(phone);
@@ -114,6 +146,7 @@
 
         })
     });
+
 
     // $(document).ready(function() {
     //     var counter = 1;
@@ -166,18 +199,7 @@
     //     })
     // })
 
-    $(document).on('click', '#btn-update', function () {
-        swal(
-            'Updated!',
-            '',
-            'success'
-        ).then((result) => {
-            $('.align-self-center').submit();
-        })
-    })
-
-
-
 </script>
+
 </html>
 
