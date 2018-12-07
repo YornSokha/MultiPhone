@@ -81,6 +81,28 @@
             })
         });
 
+
+
+        function readURL(input, _this) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    _this.closest('.image-profile').find('img').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#preview-image").change(function (event) {
+            var target = event.target || event.srcElement;
+            if (target.value.length == 0) {
+                $(this).closest('.image-profile').find('img').attr('src', 'images/img_avatar.png');
+            } else {
+                readURL(this, $(this));
+            }
+        });
+
+
         $(document).on('click', '.add-update', function (e) {
                 e.preventDefault();
                 var phone = '<div class="add-field-update">\

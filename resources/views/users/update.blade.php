@@ -9,8 +9,9 @@
             {{ Form::open(array('url' => '/user/' .$user->id .'/update', 'class' => 'align-self-center','method' => 'put','files' => true))}}
             <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
             <div class="row">
-                <div class="offset-sm-2 image-profile" style="background-image: url({{$user->path ? url('images/'.$user->path) : url('images/img_avatar.png')}})">
-                    <input type="file" name="profile_img">
+                <div class="offset-sm-2 image-profile">
+                    <img class="image-profile" src="{{url('images/'.$user->path)}}" alt="{{url('images/img_avatar.png')}}">
+                    <input type="file" id="preview-image" name="profile_img">
                 </div>
             </div>
 

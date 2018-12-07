@@ -76,13 +76,14 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            {{ Form::open(array('url' => '/user/' .$user->id .'/update','class' => 'modal-update','method' => 'put'))}}
+                                            {{ Form::open(array('url' => '/user/' .$user->id .'/update','class' => 'modal-update','method' => 'put','files' => true))}}
 
                                             <div class="modal-body">
                                                 <div class="container-fluid">
                                                     <div class="row">
-                                                        <div class="offset-sm-2 image-profile" style="background-image: url({{$user->path ? url('images/'.$user->path) : url('images/img_avatar.png')}})">
-                                                                <input type="file" name="profile_img">
+                                                        <div class="offset-sm-2 image-profile">
+                                                            <img class="image-profile" src="{{url('images/'.$user->path)}}" alt="{{url('images/img_avatar.png')}}">
+                                                            <input type="file" id="preview-image" name="profile_img">
                                                         </div>
                                                     </div>
                                                     <div class="row">
